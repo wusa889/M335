@@ -15,7 +15,6 @@ const QuadView = styled(View)`
 
 export const AnswerButtons = ({ vocables, onAnswer }) => {
     const [currentVocableIndex, setCurrentVocableIndex] = useState(0);
-    const [score, setScore] = useState(0);
 
     const currentVocable = vocables[currentVocableIndex];
 
@@ -32,10 +31,8 @@ export const AnswerButtons = ({ vocables, onAnswer }) => {
 
     const handleAnswer = (selectedAnswer) => {
         if (selectedAnswer === currentVocable.correctAnswer) {
-            setScore(score + 1);
             onAnswer(true); // Correct answer
         } else {
-            setScore(score - 1);
             onAnswer(false); // Incorrect answer
         }
     };
