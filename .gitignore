@@ -33,3 +33,9 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+.idea/M335.iml
+
+.idea/modules.xml
+
+.idea/vcs.xml
