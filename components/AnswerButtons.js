@@ -21,7 +21,7 @@ export const AnswerButtons = ({ vocables, onAnswer }) => {
     // Randomize answer options for the current vocable
     const getShuffledAnswers = () => {
         const answers = [
-            currentVocable.correctAnswer,
+            currentVocable.CorrectAnswer,
             currentVocable.Answer2,
             currentVocable.Answer3,
             currentVocable.Answer4,

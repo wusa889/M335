@@ -1,44 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View } from "react-native";
 import { AnswerButtons } from "../components/AnswerButtons";
 import { Question } from "../components/Question";
+import { getVokabelsByDeck } from '../data/database';
 
-const Deck = {
-    name: "MyTestDeck",
-    vocables: [
-        {
-            Score: 0,
-            correctAnswer: "A",
-            Answer2: "B",
-            Answer3: "C",
-            Answer4: "D",
-            ForeignWord: "Test 1",
-            ImagePath: "",
-        },
-        {
-            Score: 0,
-            correctAnswer: "A",
-            Answer2: "B",
-            Answer3: "C",
-            Answer4: "D",
-            ForeignWord: "Test 2",
-            ImagePath: "",
-        },
-        {
-            Score: 0,
-            correctAnswer: "A",
-            Answer2: "B",
-            Answer3: "C",
-            Answer4: "D",
-            ForeignWord: "Test 3",
-            ImagePath: "",
-        },
-    ],
-};
+export const GameScreen = ({ route, navigation }) => {
+    const { deckID } = route.params; // deckID vom HomeScreen übergeben
+    const [vocables, setVocables] = useState([]);
+    const [currentVocable, setCurrentVocable] = useState(null);
 
-export const GameScreen = () => {
-    const [vocables, setVocables] = useState(Deck.vocables);
-    const [currentVocable, setCurrentVocable] = useState(vocables[0]);
+    useEffect(() => {
+        loadVocables();
+    }, []);
+
+    const loadVocables = async () => {
+        const loadedVocables = await getVokabelsByDeck(deckID);
+        setVocables(loadedVocables);
+        setCurrentVocable(loadedVocables[0]);
+    };
 
     const getWeightedRandomVocable = () => {
         const maxScore = Math.max(...vocables.map((v) => v.Score));
@@ -81,6 +60,10 @@ export const GameScreen = () => {
         const nextVocable = getWeightedRandomVocable();
         setCurrentVocable(nextVocable);
     };
+
+    if (!currentVocable) {
+        return <Text>Loading...</Text>; // Zeige einen Ladezustand an, solange keine Vokabel geladen wurde
+    }
 
     return (
         <View>
