@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, Image } from "react-native";
+
 import { AnswerButtons } from "../components/AnswerButtons";
 import { Question } from "../components/Question";
 import { getVokabelsByDeck, updateVokabel } from '../data/database';
-import styled from "styled-components/native";
-
-const PictureView = styled(View)`
-justify-content: center;
-    align-items: center;
-    margin-top: 16px;
-`
+import { PictureView } from "./styles/GameScreenStyles";
 
 export const GameScreen = ({ route, navigation }) => {
     const { deckID } = route.params; // deckID vom HomeScreen übergeben
