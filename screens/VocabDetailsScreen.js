@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, Alert, Dimensions } from 'react-native';
+import {View, Text, TextInput, Button, Alert, Dimensions, Image} from 'react-native';
 import { insertVokabel, updateVokabel, getVokabelById } from '../data/database';
 import * as ImagePicker from 'expo-image-picker';
 import { CameraComponent } from '../components/CameraComponent';
@@ -15,6 +15,11 @@ const StyledTextInput = styled(TextInput)`
     padding-right: 5px;
     margin-bottom: 8px;
     min-height: 40px;
+`;
+
+const StyledTextBold = styled(Text)`
+    margin-left: 5px;
+    font-weight: bold;
 `;
 
 const StyledText = styled(Text)`
@@ -86,7 +91,7 @@ export const VocabDetailsScreen = ({ route, navigation }) => {
         }
     };
     const handleSave = async () => {
-        if (vocable.ForeignWord.trim() === '' || vocable.CorrectAnswer.trim() === '') {
+        if (vocable.ForeignWord.trim() === '' || vocable.CorrectAnswer.trim() === '' || vocable.Answer2.trim() === '' || vocable.Answer3.trim() === '' || vocable.Answer4.trim() === '') {
             Alert.alert('Fehler', 'Bitte fülle alle erforderlichen Felder aus.');
             return;
         }
@@ -134,27 +139,27 @@ export const VocabDetailsScreen = ({ route, navigation }) => {
 
     return (
         <View>
-            <StyledText>Foreign Word</StyledText>
+            <StyledTextBold>Foreign Word</StyledTextBold>
             <StyledTextInput
                 value={vocable.ForeignWord}
                 onChangeText={(text) => setVocable({ ...vocable, ForeignWord: text })}
             />
-            <StyledText>Correct Answer</StyledText>
+            <StyledTextBold>Correct Answer</StyledTextBold>
             <StyledTextInput
                 value={vocable.CorrectAnswer}
                 onChangeText={(text) => setVocable({ ...vocable, CorrectAnswer: text })}
             />
-            <StyledText>Answer 2</StyledText>
+            <StyledTextBold>Answer 2</StyledTextBold>
             <StyledTextInput
                 value={vocable.Answer2}
                 onChangeText={(text) => setVocable({ ...vocable, Answer2: text })}
             />
-            <StyledText>Answer 3</StyledText>
+            <StyledTextBold>Answer 3</StyledTextBold>
             <StyledTextInput
                 value={vocable.Answer3}
                 onChangeText={(text) => setVocable({ ...vocable, Answer3: text })}
             />
-            <StyledText>Answer 4</StyledText>
+            <StyledTextBold>Answer 4</StyledTextBold>
             <StyledTextInput
                 value={vocable.Answer4}
                 onChangeText={(text) => setVocable({ ...vocable, Answer4: text })}
@@ -168,7 +173,12 @@ export const VocabDetailsScreen = ({ route, navigation }) => {
                     <CameraComponent onImageTaken={handleImageTaken} />
                 </CameraButtonContainer>
             </PicturePickerContainer>
-            {vocable.ImagePath ? <Text>{vocable.ImagePath}</Text> : null}
+            <View  style={{alignItems: "center", marginBottom: 10}}>
+            {vocable.ImagePath ? <Image
+                source={{ uri: vocable.ImagePath }}
+                style={{ width: 200, height: 200, marginBottom: 0 }} // Setze die Bildgröße
+            /> : null}
+            </View>
             <SaveButtonContainer>
                 <SaveButton title="Save" onPress={handleSave} />
             </SaveButtonContainer>
