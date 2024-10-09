@@ -90,6 +90,23 @@ export const getVokabelById = async (vokabelID) => {
     }
 };
 
+// Get specific Deck by ID
+export const getDeckById = async (deckID) => {
+    const db = await openDatabase(); // Öffne die Datenbank asynchron
+
+    try {
+        const result = await db.getFirstAsync('SELECT * FROM Deck WHERE ID = ?', [deckID]);
+        if (result) {
+            return result;
+        } else {
+            throw new Error('Kein Deck mit dieser ID gefunden');
+        }
+    } catch (error) {
+        console.error('Fehler beim Laden des Decks:', error);
+        throw error;
+    }
+};
+
 // Update existing Vocable by ID
 export const updateVokabel = async (vocable) => {
     const db = await openDatabase();

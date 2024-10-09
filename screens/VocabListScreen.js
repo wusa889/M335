@@ -1,11 +1,26 @@
 import React, { useState, useCallback } from 'react';
 import { View, Text, FlatList, Button, TouchableOpacity } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import { getVokabelsByDeck } from '../data/database'; // Importiere die DB-Funktionen
+
+import { getVokabelsByDeck, getDeckById } from '../data/database';
+import { DeckName, VocabListcreenContainer } from "./styles/VocabListScreenStyles";
+import { VocabFlatlistItem } from '../components/VocabFlatlistItem'
 
 export const VocabListScreen = ({ route, navigation }) => {
-    const { deckID } = route.params; // deckID aus dem HomeScreen übergeben
+    const { deckID } = route.params; // Get id of selected Deck from Homescreen
     const [vokabeln, setVokabeln] = useState([]);
+    const [deckName, setDeckName] = useState('');
+
+    const loadDeckName = async () => {
+        try {
+            const deckGotten = await getDeckById(deckID);
+            setDeckName(deckGotten.Name); // Setzt den Namen des Decks in den State
+        } catch (error) {
+            console.error('Fehler beim Laden des Decks:', error);
+        }
+    };
+
+    loadDeckName();
 
     useFocusEffect(
         useCallback(() => {
@@ -23,23 +38,19 @@ export const VocabListScreen = ({ route, navigation }) => {
     };
 
     return (
-        <View>
+        <VocabListcreenContainer>
+            <DeckName>{deckName}</DeckName>
             <Button
-                title="Neue Vokabel hinzufügen"
+                title="New Vocable"
                 onPress={() => navigation.navigate('VocabDetailsScreen', { deckID: deckID })}
             />
-            <Text>Vokabeln für Deck: {deckID}</Text>
             <FlatList
                 data={vokabeln}
                 keyExtractor={item => item.UniqueID.toString()}
-                renderItem={({ item }) => (
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('VocabDetailsScreen', { deckID: deckID, vokabelID: item.UniqueID })}
-                    >
-                        <Text>{item.ForeignWord}</Text>
-                    </TouchableOpacity>
+                renderItem={({ item }) => ( <VocabFlatlistItem navigation={navigation} deckID={deckID} item={item} />
+
                 )}
             />
-        </View>
+        </VocabListcreenContainer>
     );
 };
