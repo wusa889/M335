@@ -24,8 +24,11 @@ export const VocabListScreen = ({ route, navigation }) => {
 
     return (
         <View>
+            <Button
+                title="Neue Vokabel hinzufügen"
+                onPress={() => navigation.navigate('VocabDetailsScreen', { deckID: deckID })}
+            />
             <Text>Vokabeln für Deck: {deckID}</Text>
-
             <FlatList
                 data={vokabeln}
                 keyExtractor={item => item.UniqueID.toString()}
@@ -36,11 +39,6 @@ export const VocabListScreen = ({ route, navigation }) => {
                         <Text>{item.ForeignWord}</Text>
                     </TouchableOpacity>
                 )}
-            />
-
-            <Button
-                title="Neue Vokabel hinzufügen"
-                onPress={() => navigation.navigate('VocabDetailsScreen', { deckID: deckID })}
             />
         </View>
     );

@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View } from "react-native";
+import { Text, View, Image } from "react-native";
 import { AnswerButtons } from "../components/AnswerButtons";
 import { Question } from "../components/Question";
-import { getVokabelsByDeck } from '../data/database';
+import { getVokabelsByDeck, updateVokabel } from '../data/database';
+import styled from "styled-components/native";
+
+const PictureView = styled(View)`
+justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+`
 
 export const GameScreen = ({ route, navigation }) => {
     const { deckID } = route.params; // deckID vom HomeScreen übergeben
@@ -15,8 +22,11 @@ export const GameScreen = ({ route, navigation }) => {
 
     const loadVocables = async () => {
         const loadedVocables = await getVokabelsByDeck(deckID);
-        setVocables(loadedVocables);
-        setCurrentVocable(loadedVocables[0]);
+
+        const sortedVocables = loadedVocables.sort((a, b) => a.Score - b.Score);
+
+        setVocables(sortedVocables);
+        setCurrentVocable(sortedVocables[0]);
     };
 
     const getWeightedRandomVocable = () => {
@@ -39,17 +49,19 @@ export const GameScreen = ({ route, navigation }) => {
                 randomPoint -= weights[i];
             }
         } while (nextVocable === currentVocable);  // Ensure the next question is different from the current one
-
         return nextVocable;
     };
 
-    const handleAnswer = (isCorrect) => {
+    const handleAnswer = async (isCorrect) => {
         const updatedVocables = vocables.map((vocable) => {
             if (vocable === currentVocable) {
-                return {
+                const updatedScore = isCorrect ? vocable.Score + 1 : vocable.Score - 1;
+                const updatedVocable = {
                     ...vocable,
-                    Score: isCorrect ? vocable.Score + 1 : vocable.Score - 1,
+                    Score: updatedScore,
                 };
+                updateVokabel(updatedVocable);
+                return updatedVocable;
             }
             return vocable;
         });
@@ -62,15 +74,24 @@ export const GameScreen = ({ route, navigation }) => {
     };
 
     if (!currentVocable) {
-        return <Text>Loading...</Text>; // Zeige einen Ladezustand an, solange keine Vokabel geladen wurde
+        return <Text>Loading...</Text>;
     }
 
     return (
+        <>
         <View>
+            <PictureView>
+            {currentVocable.ImagePath ? (
+                <Image
+                    source={{ uri: currentVocable.ImagePath }}
+                    style={{ width: 300, height: 300, marginBottom: 0 }} // Setze die Bildgröße
+                />
+            ) : null}
+            </PictureView>
             <Question questionWord={currentVocable.ForeignWord} />
-            <Text>Current Question: {currentVocable.ForeignWord}</Text>
-            <Text>Score for current question: {currentVocable.Score}</Text>
+            <Text>Score: {currentVocable.Score}</Text>
             <AnswerButtons vocables={[currentVocable]} onAnswer={handleAnswer} />
         </View>
+        </>
     );
 };

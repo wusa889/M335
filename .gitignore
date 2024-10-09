@@ -39,3 +39,5 @@ yarn-error.*
 .idea/modules.xml
 
 .idea/vcs.xml
+
+.idea/material_theme_project_new.xml

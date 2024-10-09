@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "react-native-paper";
-import { View } from "react-native";
+import {Platform, View} from "react-native";
 import styled from "styled-components/native";
 
 const RowView = styled(View)`
@@ -12,6 +12,10 @@ const RowView = styled(View)`
 const QuadView = styled(View)`
     flex: 1;
 `;
+
+const ContainerView = styled(View)`
+margin-top: 10px;
+`
 
 export const AnswerButtons = ({ vocables, onAnswer }) => {
     const [currentVocableIndex, setCurrentVocableIndex] = useState(0);
@@ -30,7 +34,7 @@ export const AnswerButtons = ({ vocables, onAnswer }) => {
     };
 
     const handleAnswer = (selectedAnswer) => {
-        if (selectedAnswer === currentVocable.correctAnswer) {
+        if (selectedAnswer === currentVocable.CorrectAnswer) {
             onAnswer(true); // Correct answer
         } else {
             onAnswer(false); // Incorrect answer
@@ -41,10 +45,12 @@ export const AnswerButtons = ({ vocables, onAnswer }) => {
 
     return (
         <>
+            <ContainerView>
             <RowView>
                 <QuadView>
                     <Button
                         mode="outlined"
+                        textColor="black"
                         onPress={() => handleAnswer(shuffledAnswers[0])}
                     >
                         {shuffledAnswers[0]}
@@ -53,6 +59,7 @@ export const AnswerButtons = ({ vocables, onAnswer }) => {
                 <QuadView>
                     <Button
                         mode="outlined"
+                        textColor="black"
                         onPress={() => handleAnswer(shuffledAnswers[1])}
                     >
                         {shuffledAnswers[1]}
@@ -63,6 +70,7 @@ export const AnswerButtons = ({ vocables, onAnswer }) => {
                 <QuadView>
                     <Button
                         mode="outlined"
+                        textColor="black"
                         onPress={() => handleAnswer(shuffledAnswers[2])}
                     >
                         {shuffledAnswers[2]}
@@ -71,12 +79,14 @@ export const AnswerButtons = ({ vocables, onAnswer }) => {
                 <QuadView>
                     <Button
                         mode="outlined"
+                        textColor="black"
                         onPress={() => handleAnswer(shuffledAnswers[3])}
                     >
                         {shuffledAnswers[3]}
                     </Button>
                 </QuadView>
             </RowView>
+            </ContainerView>
         </>
     );
 };

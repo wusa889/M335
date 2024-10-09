@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 const Container = styled.View`
     justify-content: center;
     align-items: center;
-    padding: 50px;
+    padding: 20px;
 `;
 
 const QuestionStyle = styled.Text`
