@@ -37,6 +37,9 @@ export const VocabListScreen = ({ route, navigation }) => {
         }
     };
 
+    const handleVocabDeleted = () => {
+        loadVokabeln();
+    };
     return (
         <VocabListcreenContainer>
             <DeckName>{deckName}</DeckName>
@@ -47,7 +50,7 @@ export const VocabListScreen = ({ route, navigation }) => {
             <FlatList
                 data={vokabeln}
                 keyExtractor={item => item.UniqueID.toString()}
-                renderItem={({ item }) => ( <VocabFlatlistItem navigation={navigation} deckID={deckID} item={item} />
+                renderItem={({ item }) => ( <VocabFlatlistItem navigation={navigation} deckID={deckID} item={item} onVocabDeleted={handleVocabDeleted} />
 
                 )}
             />

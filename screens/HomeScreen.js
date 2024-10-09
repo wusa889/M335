@@ -82,7 +82,7 @@ export const HomeScreen = ({ navigation }) => {
 
     return (
         <HomeScreenContainer>
-            <Button title="Neues Deck erstellen" onPress={() => setDialogVisible(true)} />
+            <Button title="Create New Deck" onPress={() => setDialogVisible(true)} />
         <View>
             {/* Alert to create a new Deck */}
             <Dialog.Container visible={dialogVisible}>

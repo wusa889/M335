@@ -11,12 +11,12 @@ export const DeckFlatListItem = ({ navigation, item, onDelete  }) => {
             "Bist du sicher, dass du dieses Deck löschen möchtest?",
             [
                 {
-                    text: "Nein",
+                    text: "No",
                     onPress: null,
                     style: "cancel"
                 },
                 {
-                    text: "Ja",
+                    text: "Yes",
                     onPress: async () => {
                         try {
                             await deleteDeckById(item.ID);
@@ -41,7 +41,7 @@ export const DeckFlatListItem = ({ navigation, item, onDelete  }) => {
                 <DeckName>{item.Name}</DeckName>
             <DeckButtonContainer>
             <DeckAddVocabButton
-                title="Add Vocab"
+                title="Edit Vocabables"
                 onPress={() => navigation.navigate('VocabListScreen', { deckID: item.ID })}
             />
                 <DeckDeleteButton
