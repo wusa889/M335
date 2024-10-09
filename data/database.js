@@ -92,8 +92,7 @@ export const getVokabelById = async (vokabelID) => {
 
 // Update existing Vocable by ID
 export const updateVokabel = async (vocable) => {
-    const db = await openDatabase(); // Öffne die Datenbank asynchron
-
+    const db = await openDatabase();
     try {
         const result = await db.runAsync(
             'UPDATE Vokabel SET ForeignWord = ?, CorrectAnswer = ?, Answer2 = ?, Answer3 = ?, Answer4 = ?, Score = ?, ImagePath = ? WHERE UniqueID = ?;',
@@ -106,3 +105,35 @@ export const updateVokabel = async (vocable) => {
     }
 };
 
+// Function to delete Vokabel by ID
+export const deleteVokabelById = async (vokabelID) => {
+    const db = await openDatabase();
+
+    try {
+        const result = await db.runAsync('DELETE FROM Vokabel WHERE UniqueID = ?', [vokabelID]);
+        if (result) {
+            return result;
+        } else {
+            throw new Error('Keine Vokabel mit dieser ID gefunden');
+        }
+    } catch (error) {
+        console.error('Fehler beim löschen der Vokabel:', error);
+        throw error;
+    }
+};
+
+// Function to delete Deck by ID
+export const deleteDeckById = async (deckID) => {
+    const db = await openDatabase();
+    try {
+        const result = await db.runAsync('DELETE FROM Deck WHERE ID = ?', [deckID]);
+        if (result) {
+            return result;
+        } else {
+            throw new Error('Kein Deck mit dieser ID gefunden ' + deckID);
+        }
+    } catch (error) {
+        console.error('Fehler beim löschen des Decks:', error);
+        throw error;
+    }
+};

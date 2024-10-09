@@ -3,57 +3,7 @@ import {View, Text, TextInput, Button, Alert, Dimensions, Image} from 'react-nat
 import { insertVokabel, updateVokabel, getVokabelById } from '../data/database';
 import * as ImagePicker from 'expo-image-picker';
 import { CameraComponent } from '../components/CameraComponent';
-import styled from 'styled-components/native';
-
-const screenWidth = Dimensions.get('window').width;
-
-const StyledTextInput = styled(TextInput)`
-    width: ${screenWidth / 2}px;
-    border: 1px solid black;
-    margin-left: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
-    margin-bottom: 8px;
-    min-height: 40px;
-`;
-
-const StyledTextBold = styled(Text)`
-    margin-left: 5px;
-    font-weight: bold;
-`;
-
-const StyledText = styled(Text)`
-    margin-left: 5px;
-`;
-
-const PicturePickerContainer = styled(View)`
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    margin-bottom: 10px;
-`;
-
-const SelectImageButton = styled(View)`
-    flex: 0.8;
-    margin-right: 8px;
-    margin-left: 5px;
-`;
-
-const CameraButtonContainer = styled(View)`
-    flex: 0.2;
-`;
-
-const SaveButton = styled(Button).attrs({
-    color: 'green',
-})`
-    flex: 0.8;
-    background-color: green;
-`;
-
-const SaveButtonContainer = styled(View)`
-    justify-content: center;
-    align-items: center;
-`;
+import { StyledText, StyledTextInput, StyledTextBold, PicturePickerContainer, SelectImageButton, CameraButtonContainer, SaveButton, SaveButtonContainer  } from './styles/VocabDetailsScreenStyles';
 
 export const VocabDetailsScreen = ({ route, navigation }) => {
     const { deckID, vokabelID } = route.params;

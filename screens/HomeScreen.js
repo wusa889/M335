@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Text, View, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Button, Text, View, FlatList, ActivityIndicator } from 'react-native';
 import Dialog from 'react-native-dialog';
-import { insertDeck, initDB, getDecks } from '../data/database'; // Importiere die DB-Funktionen
+
+import { insertDeck, initDB, getDecks } from '../data/database';
+import {DeckFlatListItem} from "../components/DeckFlatlistItem";
+import { HomeScreenContainer } from "./styles/HomeScreenStyles"
 
 export const HomeScreen = ({ navigation }) => {
     const [dialogVisible, setDialogVisible] = useState(false);
@@ -38,6 +41,10 @@ export const HomeScreen = ({ navigation }) => {
         }
     };
 
+    const handleDeleteDeck = (deckID) => {
+        setDecks((prevDecks) => prevDecks.filter((deck) => deck.ID !== deckID));
+    };
+
     // Function to handle creation of Deck
     const handleCreateDeck = async () => {
         if (deckName.trim()) {
@@ -64,7 +71,6 @@ export const HomeScreen = ({ navigation }) => {
             </View>
         );
     }
-
     // Show error message if there's an error
     if (error) {
         return (
@@ -75,8 +81,9 @@ export const HomeScreen = ({ navigation }) => {
     }
 
     return (
-        <View>
+        <HomeScreenContainer>
             <Button title="Neues Deck erstellen" onPress={() => setDialogVisible(true)} />
+        <View>
             {/* Alert to create a new Deck */}
             <Dialog.Container visible={dialogVisible}>
                 <Dialog.Title>Neues Deck erstellen</Dialog.Title>
@@ -89,24 +96,14 @@ export const HomeScreen = ({ navigation }) => {
                 <Dialog.Button label="Erstellen" onPress={handleCreateDeck} />
             </Dialog.Container>
 
-            {/* List of all existing Decks */}
             <FlatList
                 data={decks}
                 keyExtractor={item => item.ID.toString()}
                 renderItem={({ item }) => (
-                    <View>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('GameScreen', { deckID: item.ID })}
-                        >
-                            <Text>{item.Name}</Text>
-                        </TouchableOpacity>
-                        <Button
-                            title="Vokabeln hinzufügen"
-                            onPress={() => navigation.navigate('VocabListScreen', { deckID: item.ID })}
-                        />
-                    </View>
+                    <DeckFlatListItem item={item} navigation={navigation} onDelete={handleDeleteDeck} />
                 )}
             />
         </View>
+        </HomeScreenContainer>
     );
 };
