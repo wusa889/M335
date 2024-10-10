@@ -7,8 +7,8 @@ export const DeckFlatListItem = ({ navigation, item, onDelete  }) => {
 
     const handleDelete = async () => {
         Alert.alert(
-            "Deck löschen",
-            "Bist du sicher, dass du dieses Deck löschen möchtest?",
+            "Delete Deck",
+            "Are you sure you want to delete this deck?",
             [
                 {
                     text: "No",

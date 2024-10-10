@@ -60,6 +60,6 @@ export const CameraComponent = ({ onImageTaken }) => {
     };
 
     return (
-        <Button title="Foto machen" onPress={openCamera} />
+        <Button title="Take Picture" onPress={openCamera} />
     );
 };

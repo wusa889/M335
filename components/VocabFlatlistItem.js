@@ -8,8 +8,8 @@ export const VocabFlatlistItem = ({navigation, item, deckID, onVocabDeleted }) =
 
     const handleDeleteVocab = async () => {
         Alert.alert(
-            'Vokabel löschen',
-            'Bist du sicher, dass du diese Vokabel löschen möchtest?',
+            'Delete vocable',
+            'Are you sure you want to delete this vocable?',
             [
                 { text: 'No', style: 'cancel' },
                 { text: 'Yes', onPress: async () => {

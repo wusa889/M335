@@ -84,16 +84,15 @@ export const HomeScreen = ({ navigation }) => {
         <HomeScreenContainer>
             <Button title="Create New Deck" onPress={() => setDialogVisible(true)} />
         <View>
-            {/* Alert to create a new Deck */}
             <Dialog.Container visible={dialogVisible}>
-                <Dialog.Title>Neues Deck erstellen</Dialog.Title>
+                <Dialog.Title>Create New Deck</Dialog.Title>
                 <Dialog.Input
                     placeholder="Deck Name"
                     value={deckName}
                     onChangeText={setDeckName}
                 />
-                <Dialog.Button label="Abbrechen" onPress={() => setDialogVisible(false)} />
-                <Dialog.Button label="Erstellen" onPress={handleCreateDeck} />
+                <Dialog.Button label="Cancel" onPress={() => setDialogVisible(false)} />
+                <Dialog.Button label="Create" onPress={handleCreateDeck} />
             </Dialog.Container>
 
             <FlatList

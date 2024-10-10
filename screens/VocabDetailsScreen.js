@@ -48,10 +48,8 @@ export const VocabDetailsScreen = ({ route, navigation }) => {
         try {
             if (vokabelID) {
                 await updateVokabel(vocable);
-                Alert.alert('Erfolg', 'Vokabel erfolgreich aktualisiert.');
             } else {
                 await insertVokabel({ ...vocable, Score: 0 });
-                Alert.alert('Erfolg', 'Neue Vokabel hinzugefügt.');
             }
             navigation.goBack();
         } catch (error) {
@@ -126,7 +124,7 @@ export const VocabDetailsScreen = ({ route, navigation }) => {
             <View  style={{alignItems: "center", marginBottom: 10}}>
             {vocable.ImagePath ? <Image
                 source={{ uri: vocable.ImagePath }}
-                style={{ width: 200, height: 200, marginBottom: 0 }} // Setze die Bildgröße
+                style={{ width: 200, height: 200, marginBottom: 0 }}
             /> : null}
             </View>
             <SaveButtonContainer>
