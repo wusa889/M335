@@ -84,7 +84,6 @@ export const GameScreen = ({ route, navigation }) => {
             ) : null}
             </PictureView>
             <Question questionWord={currentVocable.ForeignWord} />
-            <Text>Score: {currentVocable.Score}</Text>
             <AnswerButtons vocables={[currentVocable]} onAnswer={handleAnswer} />
         </View>
         </>
