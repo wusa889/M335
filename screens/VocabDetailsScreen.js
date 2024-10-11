@@ -18,6 +18,8 @@ export const VocabDetailsScreen = ({ route, navigation }) => {
         FK_DeckID: deckID
     });
     const [isLoading, setIsLoading] = useState(true);
+
+    // Load vocable data if vokabelID exists, otherwise set loading to false
     useEffect(() => {
         if (vokabelID) {
             loadVocable();
@@ -25,6 +27,8 @@ export const VocabDetailsScreen = ({ route, navigation }) => {
             setIsLoading(false);
         }
     }, [vokabelID]);
+
+    // Function to load vocable data from database
     const loadVocable = async () => {
         try {
             const vokabelData = await getVokabelById(vokabelID);
@@ -40,6 +44,8 @@ export const VocabDetailsScreen = ({ route, navigation }) => {
             setIsLoading(false);
         }
     };
+
+    // Function to handle saving the vocable (inserting or updating)
     const handleSave = async () => {
         if (vocable.ForeignWord.trim() === '' || vocable.CorrectAnswer.trim() === '' || vocable.Answer2.trim() === '' || vocable.Answer3.trim() === '' || vocable.Answer4.trim() === '') {
             Alert.alert('Fehler', 'Bitte fülle alle erforderlichen Felder aus.');
@@ -57,10 +63,14 @@ export const VocabDetailsScreen = ({ route, navigation }) => {
             console.error('Fehler beim Speichern der Vokabel:', error);
         }
     };
+
+    // Function to set image path when an image is taken
     const handleImageTaken = (imageUri) => {
         // Set the ImagePath in the vocable state
         setVocable({ ...vocable, ImagePath: imageUri });
     };
+
+    // Function to open the gallery and select an image for the vocable
     const handleChoosePhoto = async () => {
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 

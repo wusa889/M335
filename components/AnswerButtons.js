@@ -33,6 +33,7 @@ export const AnswerButtons = ({ vocables, onAnswer }) => {
         return answers.sort(() => Math.random() - 0.5);
     };
 
+    // Handles answere and gives it back to parent component
     const handleAnswer = (selectedAnswer) => {
         if (selectedAnswer === currentVocable.CorrectAnswer) {
             onAnswer(true); // Correct answer

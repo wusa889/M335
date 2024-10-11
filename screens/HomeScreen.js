@@ -41,6 +41,7 @@ export const HomeScreen = ({ navigation }) => {
         }
     };
 
+    // Handles deletion of a Deck
     const handleDeleteDeck = (deckID) => {
         setDecks((prevDecks) => prevDecks.filter((deck) => deck.ID !== deckID));
     };

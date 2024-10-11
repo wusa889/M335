@@ -11,6 +11,8 @@ export const VocabListScreen = ({ route, navigation }) => {
     const [vokabeln, setVokabeln] = useState([]);
     const [deckName, setDeckName] = useState('');
 
+
+    // Loads the Deckname to set it as title
     const loadDeckName = async () => {
         try {
             const deckGotten = await getDeckById(deckID);
@@ -28,6 +30,7 @@ export const VocabListScreen = ({ route, navigation }) => {
         }, [])
     );
 
+    // Function to load all Vocables of a Deck
     const loadVokabeln = async () => {
         try {
             const vokabelList = await getVokabelsByDeck(deckID);
@@ -37,6 +40,7 @@ export const VocabListScreen = ({ route, navigation }) => {
         }
     };
 
+    // Loads Vocab again on delete
     const handleVocabDeleted = () => {
         loadVokabeln();
     };

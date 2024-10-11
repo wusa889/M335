@@ -15,6 +15,7 @@ export const GameScreen = ({ route, navigation }) => {
         loadVocables();
     }, []);
 
+    // gets all Vocables of a Deck
     const loadVocables = async () => {
         const loadedVocables = await getVokabelsByDeck(deckID);
 
@@ -47,6 +48,7 @@ export const GameScreen = ({ route, navigation }) => {
         return nextVocable;
     };
 
+    // Handles answer given back by AnswerButtons component
     const handleAnswer = async (isCorrect) => {
         const updatedVocables = vocables.map((vocable) => {
             if (vocable === currentVocable) {

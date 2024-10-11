@@ -41,7 +41,7 @@ export const CameraComponent = ({ onImageTaken }) => {
             console.log("Kein gültiger Bildpfad vorhanden.");
         }
     };
-
+    // Function to save image taken to gallery
     const saveImageToGallery = async (imageUri) => {
         console.log("Speichern des Bildes in der Galerie...");
         try {
